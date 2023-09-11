@@ -3,7 +3,6 @@ general:
     tags:
       locust: locustio/locust:2.16.1
       api: lucasdatb/autoscale:latest
-      gitbox: alpine/git:2.40.1
     pullPolicy: IfNotPresent
   ports:
     api:
@@ -23,6 +22,13 @@ general:
 api:
   name: api
   replicas: 1
+  resources:
+    requests:
+      cpu: 128m
+      memory: 250Mi
+    limits:
+      cpu: 250m
+      memory: 500Mi
 locust:
   name: locust
   locust_file_path: /home/locust

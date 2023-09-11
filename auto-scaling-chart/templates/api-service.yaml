@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.api.name }}-service"
+spec:
+  selector:
+    app: {{ .Release.name }}
+    component: {{ .Values.api.name }}
+  type: ClusterIP
+  ports:
+    - name: {{ .Values.general.ports.api.api.name }}
+      port: {{ .Values.general.ports.api.api.port }}
+      protocol: TCP
+      targetPort: {{ .Values.general.ports.api.api.port }}
