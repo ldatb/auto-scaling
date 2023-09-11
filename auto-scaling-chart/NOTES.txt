@@ -1,0 +1,1 @@
+Run `minikube service locust-nodeport --url` to get Locust's URL.
