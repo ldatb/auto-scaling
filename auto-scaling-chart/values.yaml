@@ -21,17 +21,18 @@ general:
         port: 5558
 api:
   name: api
-  replicas: 1
+  replicas:
+    min: 1
+    max: 5
   resources:
     requests:
-      cpu: 128m
+      cpu: 250m
       memory: 250Mi
     limits:
-      cpu: 250m
+      cpu: 500m
       memory: 500Mi
 locust:
   name: locust
   locust_file_path: /home/locust
   locust_file_name: locust.py
-  worker:
-    replicas: 2
+

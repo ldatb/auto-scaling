@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.api.name }}
+  name: "{{ .Values.api.name }}-deployment"
   labels:
     app: {{ .Release.name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.api.replicas.min }}
   selector:
     matchLabels:
       app: {{ .Release.name }}
