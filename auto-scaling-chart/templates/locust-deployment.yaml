@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.locust.name }}
+  labels:
+    app: {{ .Release.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.name }}
+      component: {{ .Values.locust.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.name }}
+        component: {{ .Values.locust.name }}
+    spec:
+      containers:
+      - name: {{ .Values.locust.name }}
+        image: {{ .Values.general.images.tags.locust }}
+        imagePullPolicy: {{ .Values.general.images.pullPolicy }}
+        args:
+            #- --master
+          - --locustfile={{ .Values.locust.locust_file_path }}/{{ .Values.locust.locust_file_name }}
+        volumeMounts:
+          - name: "{{ .Values.locust.name }}-scripts"
+            mountPath: {{ .Values.locust.locust_file_path }}
+        ports:
+          - name: {{ .Values.general.ports.locust.web.name }}
+            containerPort: {{ .Values.general.ports.locust.web.port }}
+            protocol: TCP
+          - name: {{ .Values.general.ports.locust.p1.name }}
+            containerPort: {{ .Values.general.ports.locust.p1.port }}
+            protocol: TCP
+          - name: {{ .Values.general.ports.locust.p2.name }}
+            containerPort: {{ .Values.general.ports.locust.p2.port }}
+            protocol: TCP
+      volumes:
+      - name: "{{ .Values.locust.name }}-scripts"
+        configMap:
+          name: "{{ .Values.locust.name }}-script"

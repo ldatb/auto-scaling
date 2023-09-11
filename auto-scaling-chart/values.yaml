@@ -1,13 +1,31 @@
 general:
-  repo: git@github.com:ldatb/auto-scaling.git
   images:
     tags:
       locust: locustio/locust:2.16.1
+      api: lucasdatb/autoscale:latest
       gitbox: alpine/git:2.40.1
     pullPolicy: IfNotPresent
+  ports:
+    api:
+      api:
+        name: api-port
+        port: 5000
+    locust:
+      web:
+        name: locust-web
+        port: 8089
+      p1:
+        name: locust-p1
+        port: 5557
+      p2:
+        name: locust-p2
+        port: 5558
+api:
+  name: api
+  replicas: 1
 locust:
   name: locust
-  config:
-    local_file_path: $PWD/app
-    mount_path: /app
-    locust_file: locust.py
+  locust_file_path: /home/locust
+  locust_file_name: locust.py
+  worker:
+    replicas: 2

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.locust.name }}-service"
+spec:
+  selector:
+    app: {{ .Release.name }}
+    component: {{ .Values.locust.name }}
+  type: ClusterIP
+  ports:
+    - name: {{ .Values.general.ports.locust.p1.name }}
+      port: {{ .Values.general.ports.locust.p1.port }}
+      protocol: TCP
+      targetPort: {{ .Values.general.ports.locust.p1.port }}
+    - name: {{ .Values.general.ports.locust.p2.name }}
+      port: {{ .Values.general.ports.locust.p2.port }}
+      protocol: TCP
+      targetPort: {{ .Values.general.ports.locust.p2.port }}
+    - name: {{ .Values.general.ports.locust.web.name }}
+      port: {{ .Values.general.ports.locust.web.port }}
+      protocol: TCP
+      targetPort: {{ .Values.general.ports.locust.web.port }}

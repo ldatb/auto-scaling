@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Values.locust.name }}-script"
+data:
+  {{ .Values.locust.locust_file_name }}: |
+    from locust import HttpUser, task
+
+    class APITest(HttpUser):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        def on_start(self):
+            pass
+
+        @task
+        def index(self):
+            self.client.get("/")
+
+        @task
+        def square_root(self):
+            self.client.get("/square-root")
+
+        @task
+        def cube_root(self):
+            self.client.get("/cube-root")
