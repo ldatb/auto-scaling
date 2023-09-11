@@ -1,0 +1,5 @@
+apiVersion: v2
+name: auto-scaling
+description: The purpose of this project is to demonstrate an auto scalable Kubernetes application. You can see in real time how an application auto scales to support the amount of requests (that you control).
+type: application
+version: 0.1.0

@@ -1,0 +1,13 @@
+general:
+  repo: git@github.com:ldatb/auto-scaling.git
+  images:
+    tags:
+      locust: locustio/locust:2.16.1
+      gitbox: alpine/git:2.40.1
+    pullPolicy: IfNotPresent
+locust:
+  name: locust
+  config:
+    local_file_path: $PWD/app
+    mount_path: /app
+    locust_file: locust.py
